@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Empleados</title>
+</head>
+<body>
+
+    <h1>Lista de empleados</h1>
+    <p>Welcome to my first Django project!</p>
+
+    <h3>Empleados registrados:</h3>
+    <ul>
+        {% for empleado in empleados %}
+            <!-- Usamos .nombre en minúscula como el atributo de la clase Python -->
+            <li>{{ empleado.nombre }} - Salario: ${{ empleado.salario }}</li>
+        {% empty %}
+            <li>No hay ningún empleado registrado en la base de datos todavía.</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
