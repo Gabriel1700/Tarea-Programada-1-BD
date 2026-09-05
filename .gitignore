@@ -4,4 +4,4 @@ Include/
 Scripts/
 pyvenv.cfg
 .env
-tp1_proyecto\settings.py
+tp1_proyecto/settings.py
