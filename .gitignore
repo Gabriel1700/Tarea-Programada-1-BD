@@ -5,3 +5,5 @@ Scripts/
 pyvenv.cfg
 .env
 tp1_proyecto\settings.py
+__pycache__/
+*.pyc
