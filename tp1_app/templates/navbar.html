@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% block title %}Sistema de Empleados{% endblock %}</title>
+    {% load bootstrap5 %} <!--Le dice a Django que debe cargar el módulo de bootstrap 5 en esta plantilla-->
+    {% bootstrap_css %} <!--Inserción de <link> con referencia a la hoja de estilos de bootstrap-->
+    {% bootstrap_javascript %} <!--Inserción de <script> con referencia al archivo javascript-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> <!--Para usar icono-->
+</head>
+
+<body class="bg-light">
+
+    <!-- Barra de navegación  -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold fs-5 text-white" href="/">Empleados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold fs-5 text-white" href="/insertar_empleado">Insertar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold fs-5 text-white" href="#">Acerca de</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    
+    <div class="container mt-3">
+
+        <!-- Espacio para las demás templates -->
+        {% block content %}
+        {% endblock %}
+
+    </div>
+
+</body>
+
+</html>

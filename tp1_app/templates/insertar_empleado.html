@@ -1,9 +1,66 @@
-<!DOCTYPE html>
-<html>
-<body>
+{# Carga la barra de navegación navbar.html #}
+{% extends 'navbar.html' %}
 
-<h1>Insertar empleados</h1>
-<p>Welcome to my first Django project!</p>
+{# Titulo de la pagina #}
+{% block title %}Insertar Empleado{% endblock %}
 
-</body>
-</html>
+{% block content %}
+
+<!--Contenedor que centra el contenido y coloca margin top de 5-->
+<div class="row justify-content-center mt-5">
+
+    <!-- Abarca 12 columnas en celular, 6 mantalla mediana y 5 pantalla grande -->
+    <div class="col-12 col-md-6 col-lg-5">
+
+        <!-- Tarjeda de fondo blanco, sombra y padding de 4, bordes redondeados -->
+        <div class="card shadow p-4 bg-white rounded mb-4">
+
+            <!-- Titulo del formulario, centrado, margen-bottom 4, color primary, negrita  -->
+            <h3 class="text-center mb-4 fw-bold text-primary fs-3 text-uppercase">
+                <i class="bi bi-person-plus-fill me-2"></i>Insertar Empleado
+            </h3>
+
+            <!--Formulario-->
+            <form id="formEmpleado" action="/insertar_empleado/" method="POST">
+                {% csrf_token %}
+
+                <!--Campo para el nombre-->
+                <div class="mb-3">
+                    <label for="nombre" class="form-label fw-semibold fs-5">
+                        <i class="bi bi-person-fill me-2 fs-2 align-middle"></i>
+                        <span class="align-middle ">Nombre:</span>
+                    </label>
+                    <input name="nombre" type="text" class="form-control" id="nombre" aria-describedby="nombreHelp">
+                    <div id="nombreHelp" class="form-text">Debe contener únicamente valores alfabéticos o un guión.
+                    </div>
+                </div>
+
+                <!--Campo para el salario-->
+                <div class="mb-3">
+                    <label for="salario" class="form-label fw-semibold fs-5">
+                        <i class="bi bi-cash-coin me-2 fs-2 align-middle"></i>
+                        <span class="align-middle ">Salario:</span>
+                    </label>
+                    <input name="salario" type="text" class="form-control" id="salario" aria-describedby="salarioHelp">
+                    <div id="salarioHelp" class="form-text">Debe contener solo dígitos o punto decimal, máximo de 2 o 4
+                        decimales.</div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 fw-bold text-uppercase py-2">
+                    Insertar
+                </button>
+
+                <!-- Div para mostrar mensajes y excepciones de validación -->
+                <div class="mt-3" id="seccionErrores">
+
+                    
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    
+</div>
+{% endblock %}
