@@ -6,15 +6,10 @@ from .models import Empleado
 # Create your views here.
 
 def empleado(request):
-    lista_empleados = Empleado.objects.all().order_by('nombre')
-
-    # template = loader.get_template('empleados.html')
-
-    # context = {
-    #     'empleados': lista_empleados,
-    # }
-
-    # return HttpResponse(template.render(context, request))
+    with connection.cursor() as cursor:
+        cursor.execute("EXEC ObtenerEmpleados")
+        columnas = [col[0].lower() for col in cursor.description]
+        lista_empleados = [dict(zip(columnas, fila)) for fila in cursor.fetchall()]
     return render(request, 'empleados.html', {'empleados': lista_empleados})
 
 def insertar_empleado(request):
