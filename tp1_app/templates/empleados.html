@@ -1,23 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Lista de Empleados</title>
+  <title>{% block title %}{% endblock %}</title>
+  {% load django_bootstrap5  %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
 </head>
 <body>
 
-    <h1>Lista de empleados</h1>
-    <p>Welcome to my first Django project!</p>
+<div class="container">
+  <ul class="nav bg-info">
+    <li class="nav-item">
+      <a class="nav-link link-light" href="/">Empleados</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link link-light" href="/members">Insertar</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link link-light" href="/members">Acerca de</a>
+    </li>
+  </ul>
+  {% block content %}
+  {% endblock %}
+</div>
 
-    <h3>Empleados registrados:</h3>
-    <ul>
-        {% for empleado in empleados %}
-            <!-- Usamos .nombre en minúscula como el atributo de la clase Python -->
-            <li>{{ empleado.nombre }} - Salario: ${{ empleado.salario }}</li>
-        {% empty %}
-            <li>No hay ningún empleado registrado en la base de datos todavía.</li>
-        {% endfor %}
-    </ul>
+
+<!-- esta es la tabla de los empleados -->
+<div class="card shadow-sm mx-auto my-4" style="max-width: 800px;">
+
+    {% block table %}
+    <table class="table table-striped table-hover">
+        <caption style="caption-side: top; font-weight: bold; font-size: larger;">Lista de empleados</caption>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Salario</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for empleado in empleados %}
+            <tr>
+                <td>{{empleado.nombre}}</td>
+                <td>{{empleado.salario}}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No hay empleados registrados</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+
+  </table>
+  {% endblock %}
+
+</div>
+
 
 </body>
-</html>

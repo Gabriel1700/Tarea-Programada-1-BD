@@ -8,13 +8,14 @@ from .models import Empleado
 def empleado(request):
     lista_empleados = Empleado.objects.all().order_by('nombre')
 
-    template = loader.get_template('empleados.html')
+    # template = loader.get_template('empleados.html')
 
-    context = {
-        'empleados': lista_empleados,
-    }
+    # context = {
+    #     'empleados': lista_empleados,
+    # }
 
-    return HttpResponse(template.render(context, request))
+    # return HttpResponse(template.render(context, request))
+    return render(request, 'empleados.html', {'empleados': lista_empleados})
 
 def insertar_empleado(request):
     template = loader.get_template('insertar_empleado.html')
