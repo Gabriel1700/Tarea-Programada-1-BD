@@ -51,16 +51,89 @@
                 </button>
 
                 <!-- Div para mostrar mensajes y excepciones de validación -->
-                <div class="mt-3" id="seccionErrores">
-
-                    
-
+                 <div class="mt-3" id="seccionErrores">
+                    {% if messages %} 
+                        {% for message in messages %}
+                        <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %} d-flex align-items-start" role="alert">
+                            {% if message.tags == 'success' %}
+                                <i class="bi bi-check-circle-fill me-2 fs-5"></i>
+                            {% else %}
+                                <i class="bi bi-exclamation-circle-fill me-2 fs-5"></i>
+                            {% endif %}
+                            <div>
+                                <strong>{% if message.tags == 'success' %}Éxito:{% else %}Error:{% endif %}</strong> {{ message }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
+
             </form>
+
+            <!--Lógica de validación js en la ui -->
+            <script>
+                // Función que verifica que el nombre sea correcto
+                // Recibe como parámetro un texto de nombre
+                // Retorna true si no está vacío y cumple con el patrón
+                function validarNombre(nombre) {
+                    if (nombre === "") return false;
+                    const patNombre = /^[A-Za-záéíóúÁÉÍÓÚñÑ\s-]+$/; //Letas A-Z, a-z o tildes, ñ, espacios o guion
+                    return patNombre.test(nombre); //Test compara el texto con el patron
+                }
+
+                // Función que valida el salario ingresado
+                // Recibe un texto de salario
+                // Retorna true si no está vacío y cumple con el patrón.
+                function validarSalario(salario) {
+                    if (salario === "") return false;
+                    const patSalario = /^\d+(\.\d{2,4})?$/; //Numeros enteros o decimales con punto, de 2 a 4
+                    return patSalario.test(salario);
+                }
+
+                //Evitar que la página se recargue
+                document.getElementById('formEmpleado').addEventListener('submit', function (event) {
+                    event.preventDefault();
+
+                    //Captura valores del input del form por id y eliminación de espacios al inicio y final
+                    const txtNombre = document.getElementById('nombre').value.trim();
+                    const txtSalario = document.getElementById('salario').value.trim();
+
+                    //Sección donde se muestran errores de valdación 
+                    const divErrores = document.getElementById('seccionErrores');
+                    divErrores.innerHTML = "";
+
+                    // Si ambos campos son válidos, procede con la BD
+                    if (validarNombre(txtNombre) && validarSalario(txtSalario)) {
+                        document.getElementById('formEmpleado').submit();
+                        return;
+                    }
+
+                    // Variable para almacenar los errores que surjan.
+                    let listaErrores = "";
+
+                    if (!validarNombre(txtNombre)) {
+                        listaErrores += "<li>El nombre no puede estar vacío y debe contener solo letras o guion.</li>";
+                    }
+                    if (!validarSalario(txtSalario)) {
+                        listaErrores += "<li>El salario no puede estar vacío y debe contener solo dígitos o punto decimal con 2 a 4 dígitos.</li>";
+                    }
+
+                    //Inserción de errores al divErrores
+                    divErrores.innerHTML = `
+                        <div class="alert alert-danger d-flex align-items-start" role="alert">
+                            <i class="bi bi-exclamation-circle-fill me-2 fs-5"></i>
+                            <div>
+                                <strong>Error:</strong>
+                                <ul class="mb-0 mt-1 ps-3">${listaErrores}</ul>
+                            </div>
+                        </div>
+                    `;
+                });
+            </script>
 
         </div>
     </div>
 
-    
+
 </div>
 {% endblock %}
