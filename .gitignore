@@ -4,10 +4,6 @@ Include/
 Scripts/
 pyvenv.cfg
 .env
-<<<<<<< HEAD
-tp1_proyecto\settings.py
+tp1_proyecto/settings.py
 __pycache__/
 *.pyc
-=======
-tp1_proyecto/settings.py
->>>>>>> efbbbd3142d51e081b2fa22425b4d1567f35e469
